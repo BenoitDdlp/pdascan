@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDA Barcode Event Test</title>
+  <script>
+    function logEvent(event) {
+      const textarea = document.getElementById('eventLog');
+      textarea.value += `${event.type} on ${event.target.id}\n`;
+      for (let prop in event) {
+        textarea.value += `\t${prop}: ${event[prop]}\n`;
+      }
+      console.log(event);
+    }
+  </script>
+</head>
+<body>
+  <h1>Test PDA Barcode Events</h1>
+
+  <input type="text" id="input1" onkeydown="logEvent(event)" onkeypress="logEvent(event)" oninput="logEvent(event)" onchange="logEvent(event)">
+  <textarea type="text" id="textarea" onkeydown="logEvent(event)" onkeypress="logEvent(event)" oninput="logEvent(event)" onchange="logEvent(event)"></textarea>
+  
+  <textarea id="eventLog" rows="20" cols="100"></textarea>
+
+  <input type="text" id="textInput" placeholder="Type something">
+  <div id="output"></div>
+
+  <script>
+    const textInput = document.getElementById('textInput');
+    const events = [
+      'input', 
+      'change', 
+      'keydown', 
+      'keyup', 
+      'keypress',
+      'focus', 
+      'blur', 
+      'cut', 
+      'copy', 
+      'paste',
+      'select', 
+      'contextmenu'
+    ];
+
+    events.forEach(eventName => {
+      textInput.addEventListener(eventName, 
+      logEvent);
+    });
+
+    document.addEventListener('keydown', logEvent);
+    document.addEventListener('keypress', logEvent);
+    document.addEventListener('input', logEvent);
+    document.addEventListener('change', logEvent);
+    document.addEventListener('textInput', logEvent);
+  </script>
+</body>
+</html>
